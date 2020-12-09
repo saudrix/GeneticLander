@@ -74,6 +74,22 @@ class Vector2:
     def __imul__(self, o):
         return self * o
 
+    # creating custom indexing
+    def __getitem__(self, index):
+        if isinstance(index, int):
+            if(index == 0): return self.x
+            elif(index == 1): return self.y
+            else: raise IndexError(f'Index value {index} is out of range')
+        else: raise TypeError('Indexer must be an int')
+
+    def __setitem__(self, index, value):
+        if isinstance(index, int):
+            if(index == 0): self.x = value
+            elif(index == 1): self.y = value
+            else: raise IndexError(f'Index value {index} is out of range')
+        else:
+            raise TypeError('Indexer must be an int')
+
     # function that returns the norm of the vector
     def norm(self):
         return(math.sqrt(self.x**2 + self.y**2))
