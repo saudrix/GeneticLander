@@ -38,9 +38,10 @@ class Lem:
         # find the position differential
         deltaPos = self.currentVelocity * deltaT + self.acceleration * .5 * (deltaT **2)
         # update position
-        checkLanding(deltaPos)
-        if(landing):
-            
+
+        self.checkLanding(deltaPos)
+        if(self.landed):
+            self.position = Vector2()
         else: self.position += deltaPos
 
     def checkLanding(self, movement):
@@ -55,7 +56,7 @@ class Lem:
         if(self.rightThrust):
             strengths.append(self.rT_power)
         if(self.mainThrust):
-            strengths.Append(self.mT_power)
+            strengths.append(self.mT_power)
 
         return sum(strengths, Vector2())
 
