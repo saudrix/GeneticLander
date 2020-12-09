@@ -4,9 +4,9 @@ from pygame.locals import *
 
 from src.Lem import *
 
-lem = Lem(10, 40, 16437, [0,0])
+lem = Lem(Vector2(100,600), 16437, Vector2(0,0))
 deltaT = 1 #step time in second
-g = (0,-1.62)#-9.8)
+g = Vector2(0,-1.62)#-9.8)
 
 # ===========================================
 #                   SETUP                   |
@@ -28,7 +28,7 @@ lander = pygame.image.load("src/img/lander.png").convert_alpha()
 landerSprite_position = lander.get_rect()
 lander_size = lander.get_size()
 lander = pygame.transform.scale(lander, (lander_size[0]//2, lander_size[1]//2))
-fenetre.blit(lander, (lem.x,lem.y))
+fenetre.blit(lander, (lem.position[0],720-lem.position[1]))
 pygame.display.flip()
 
 # ===========================================
@@ -60,16 +60,15 @@ while continuer:
             if event.key == K_RIGHT:
                 lem.leftThrust = False
 
-    lem.stabilyze()
+    clock.tick(fps)
+    #if(int(clock.get_fps()) != 0 and frame_count % int(clock.get_fps()) == 0):
+    if(lem.position[1] > 0):
+        if(int(clock.get_fps()) != 0):
+            lem.move(deltaT, g)
+        else: lem.move(deltaT, g)
+    print(f'pos: {lem.position} | s: ({lem.currentVelocity}) \n')
 
     #landerSprite_position.move(lem.x-landerSprite_position[0],-lem.y-landerSprite_position[1])
     fenetre.blit(bg, (0,0))
-    fenetre.blit(lander, (lem.x, -lem.y))
+    fenetre.blit(lander, (lem.position[0], 720-lem.position[1]))
     pygame.display.update()
-
-    clock.tick(fps)
-    #if(int(clock.get_fps()) != 0 and frame_count % int(clock.get_fps()) == 0):
-    if(int(clock.get_fps()) != 0):
-        lem.move(deltaT, g)
-    else: lem.move(deltaT, g)
-    print(f'x: {lem.x} | y: {lem.y} | s: ({lem.currentVelocity}) \n')
