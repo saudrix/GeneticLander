@@ -64,6 +64,16 @@ class Vector2:
     def __ge__(self, o):
         return(self == o or self > o)
 
+    # getting crazy for inhanced pleasure
+    def __iadd__(self, o):
+        return self + o
+
+    def __isub__(self, o):
+        return self - o
+
+    def __imul__(self, o):
+        return self * o
+
     # function that returns the norm of the vector
     def norm(self):
         return(math.sqrt(self.x**2 + self.y**2))
