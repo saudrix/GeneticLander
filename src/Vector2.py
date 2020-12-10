@@ -93,3 +93,12 @@ class Vector2:
     # function that returns the norm of the vector
     def norm(self):
         return(math.sqrt(self.x**2 + self.y**2))
+
+    def toTuple(self):
+        return (self.x,self.y)
+
+    def clamp(self, minX, minY, maxX, maxY):
+        if(self.x < minX): self.x = minX
+        if(self.y < minY): self.y = minY
+        if(self.x > maxX): self.x = maxX
+        if(self.y > maxY): self.y = maxY
