@@ -30,9 +30,9 @@ class GameObject:
         self.bounds = self.createBounds(self.center)
 
     def display(self, surface):
-        if(self.debug): ygame.draw.rect(surface, (255,0,0), self.bounds)
+        if(self.debug):
+            pygame.draw.rect(surface, (255,0,0), self.bounds)
         surface.blit(self.sprite, self.pos.toTuple())
-        #pygame.display.update()
 
     def collide(self, other):
         if(not isinstance(other,GameObject)): return False
