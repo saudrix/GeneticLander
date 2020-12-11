@@ -33,6 +33,7 @@ moon = pygame.transform.scale(moon, (moon_size[0]*5, moon_size[1]*2))
 moon_size = moon.get_size()
 
 moonGO = GameObject(moon, Vector2(0,moon_size[1]), Vector2(moon_size[0],moon_size[1]//2), Vector2(0, moon_size[1]//4))
+print(moonGO.bounds)
 
 # CREATING THE BASE GAME OBJECT
 base = pygame.image.load("src/img/landingBase.png").convert_alpha()
@@ -45,6 +46,7 @@ lander = pygame.image.load("src/img/lander.png").convert_alpha()
 lander_size = lander.get_size()
 lander = pygame.transform.scale(lander, (lander_size[0]//2, lander_size[1]//2))
 lander_size = lander.get_size()
+print(lander_size)
 
 lemGO = GameObject(lander, Vector2(100,600), Vector2(lander_size[0], lander_size[1]))
 
