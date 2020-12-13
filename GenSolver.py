@@ -8,11 +8,14 @@ import pygame
 from pygame.locals import *
 
 pop_size = 40
-chromosome_size = 40
+chromosome_size = 60
 population = []
 
 objective = pygame.Rect(510, 672, 260, 64)
+objCollider = pygame.Rect(510, 720-672, 260, 64)
 ground = pygame.Rect(0, 680, 1280, 40)
+moonCollider = pygame.Rect(0, 720-680, 1280, 40)
+
 lemSize = Vector2(81, 76)
 
 probMut = 0.01
@@ -27,8 +30,8 @@ def init():
     return population
 
 def simRun(chromosome):
-    lem = Lem(Vector2(100,600), 16437, Vector2(0,0))
-    pos = [(lem.position,lem.currentVelocity)]
+    lem = Lem(Vector2(100,600), 16437, Vector2(20,-10))
+    data = [(lem.position,lem.currentVelocity)]
     for gene in chromosome.genes:
         # Update Lem control
         lem.leftThrust = gene.l
@@ -37,29 +40,33 @@ def simRun(chromosome):
         # Apply physics modifications
         lem.move(1, Vector2(0,-1.62))
         # store lem position
-        pos.append((lem.position,lem.currentVelocity))
-    return pos
+        data.append((lem.position,lem.currentVelocity))
+    return data
 
-def simulateGen(population):
+def simulateGen(population, surface):
     for chromosome in population:
-        chromosome.score = evaluateRun(simRun(chromosome))
+        data = simRun(chromosome)
+        chromosome.score = evaluateRun(data, chromosome)
+        drawChromosome(data, surface, chromosome.color)
     return population
 
 def testWin():
     pop = init()
     display = pygame.display.set_mode((1280,720))
-    for c in pop:
-        data = simRun(c)
-        evaluateRun(data)
-        drawChromosome(data,display, (15,15,15))
-    while(True):
+    pygame.draw.rect(display, (100,100,100), ground)
+    pygame.draw.rect(display, (200,200,200), objective)
+    while(pop[0].score != - 1):
         for event in pygame.event.get():
             # if event is QUIT leave game
             if(event.type == QUIT):
                 pygame.quit()
+        pop = simulateGen(pop, display)
+        pop = updatePop(pop)
+        display.fill((0,0,0))
 
 def drawChromosome(data, surface, color):
-    surface.fill((0,0,0))
+    pygame.draw.rect(surface, (100,100,100), ground)
+    pygame.draw.rect(surface, (200,200,200), objective)
     prevPos = Vector2(100,600)
     for pos, speed in data:
         t1 = prevPos.toTuple()
@@ -68,26 +75,31 @@ def drawChromosome(data, surface, color):
         prevPos = pos
     pygame.display.update()
 
-def evaluateRun(data):
+def evaluateRun(data, c):
     for result in data:
         status = checkStatus(*result)
         if(status == "LANDED"):
+            c.color = (0, 50, 0)
             return -1
         if(status == "CRASHED_MOON"):
             return dist(result[0]) + 20 # turn malus to a variable
+            c.color = (50, 0, 0)
         if(status == "CRASHED_ON_SITE"):
+            c.color = (0, 0, 50)
             return (result[1] - Vector2(20, 40)).norm()
-    else: return dist(result[0])
+    else:
+        c.color = (50,50,50)
+        return dist(result[0])
 
 def checkStatus(pos, speed):
     boundsStart = (pos + lemSize / 2) - lemSize / 2
     lemBounds = pygame.Rect(boundsStart[0], boundsStart[1], lemSize[0], lemSize[1])
 
-    if(lemBounds.colliderect(objective) and speed[0] < 20 and speed[1] < 40):
+    if(lemBounds.colliderect(objCollider) and speed[0] < 20 and speed[1] < 40):
         return("LANDED")
-    if(lemBounds.colliderect(objective)):
+    if(lemBounds.colliderect(objCollider)):
         return("CRASHED_ON_SITE")
-    if(lemBounds.colliderect(ground)):
+    if(lemBounds.colliderect(moonCollider)):
         return("CRASHED_MOON")
 
 def dist(pos):

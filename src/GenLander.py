@@ -28,6 +28,7 @@ class Chromosome:
         self.size = size
         self.genes = []
         self.score = 100000000000
+        self.color = (0,0,0)
 
     def populateRandom(self):
         for i in range(0, self.size):
