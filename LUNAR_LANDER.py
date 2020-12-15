@@ -14,7 +14,7 @@ class LanderMenu:
     def menu(self):
         menuWindow = pygame.display.set_mode((1486,750))
         bg = pygame.image.load(r"img/bgHome.jpg").convert()
-        print(bg.get_size())
+
         bg = pygame.transform.scale(bg, (int(bg.get_size()[0]*0.8), int(bg.get_size()[1]*0.8)))
         menuWindow.blit(bg, (0,0))
         # buttons
@@ -26,7 +26,7 @@ class LanderMenu:
         self.buttons.append(pygame.image.load(r"img/exitSelected.png").convert())
         for b in self.buttons:
             b = pygame.transform.scale(b, (b.get_size()[0]//2,b.get_size()[1]//2))
-        print(self.buttons)
+        
         #self.drawButtons()
         pygame.display.update()
         return menuWindow

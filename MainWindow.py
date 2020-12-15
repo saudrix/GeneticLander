@@ -135,6 +135,5 @@ class MainWindow:
 
             self.moveLem()
             self.lemGO.updatePos(self.lem.position)
-            print(collider)
 
             self.window.draw()
