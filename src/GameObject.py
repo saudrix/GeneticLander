@@ -30,6 +30,8 @@ class GameObject:
         self.bounds = self.createBounds(self.center)
 
     def display(self, surface):
+        #print(self.sprite)
+        #print(self.pos)
         if(self.debug):
             pygame.draw.rect(surface, (255,0,0), self.bounds)
         surface.blit(self.sprite, self.pos.toTuple())

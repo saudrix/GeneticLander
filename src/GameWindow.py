@@ -24,3 +24,5 @@ class Window:
         for obj in self.gameObjects:
             obj.display(self.display)
         pygame.display.update()
+
+    

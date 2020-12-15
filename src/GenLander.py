@@ -8,7 +8,7 @@ class Gene:
 
     def randomize(self):
         self.l = True if randint(0,2) else False
-        self.m = True if randint(0,2) else False
+        self.m = True if randint(0,10) > 6 else False
         self.r = True if randint(0,2) else False
 
     def mutate(self):
