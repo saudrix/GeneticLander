@@ -37,7 +37,7 @@ class LanderWindow:
         return self.population
 
     def simRun(self,chromosome):
-        lem = Lem(Vector2(100,600), 16437, Vector2(40,-10))#, Vector2(20,-10))
+        lem = Lem(Vector2(100,600), 16437, Vector2(0,0))#, Vector2(20,-10))
         data = [(lem.position,lem.currentVelocity)]
         for gene in chromosome.genes:
             # Update Lem control
