@@ -37,7 +37,7 @@ class LanderWindow:
         return self.population
 
     def simRun(self,chromosome):
-        lem = Lem(Vector2(100,600), 16437, Vector2(0,0))#, Vector2(20,-10))
+        lem = Lem(Vector2(100,600), 16437, Vector2(40,-10))#, Vector2(20,-10))
         data = [(lem.position,lem.currentVelocity)]
         for gene in chromosome.genes:
             # Update Lem control
@@ -136,10 +136,10 @@ class LanderWindow:
         self.base = pygame.image.load("src/img/landingBase.png").convert_alpha()
 
     def drawChromosome(self, data, surface, color):
-        pygame.draw.rect(surface, (100,100,100), self.ground)
-        pygame.draw.rect(surface, (0,0,255), self.moonCollider)
-        pygame.draw.rect(surface, (0,255,0), self.objCollider)
-        pygame.draw.rect(surface, (255,0,0), self.objective)
+        #pygame.draw.rect(surface, (100,100,100), self.ground)
+        #pygame.draw.rect(surface, (0,0,255), self.moonCollider)
+        #pygame.draw.rect(surface, (0,255,0), self.objCollider)
+        #pygame.draw.rect(surface, (255,0,0), self.objective)
         prevPos = Vector2(100,600)
         for pos, speed in data:
             t1 = prevPos.toTuple()
