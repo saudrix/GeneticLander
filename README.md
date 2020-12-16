@@ -97,7 +97,7 @@ So a **Gene** is simply describe like this:
 
 It contains three boolean parameters that describe the state of the Lem engines at any point in time. The Gene class contains a method that randomly create a Gene whit probability of **.5** that a side engine is turned on an a probability of **.4** that its main engine is turned on[^1].  The Gene also has a **mutate** function that allows it to mutate *(i.e. If an engine is turned on turns it off and the opposite)* with a given probability.
 
-#### Chromosomes
+#### Chromosomes 
 
 Then the **Chromosome** class is really simple, it's only define as follows: 
 
